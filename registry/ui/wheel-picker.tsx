@@ -274,15 +274,21 @@ function WheelPickerColumn({
   )
 
   // Follow value changes from outside unless a drag is running, and re-cull rows when the options change.
-  const seen = React.useRef(index)
+  const seen = React.useRef({ index, value })
   React.useLayoutEffect(() => {
     emitted.current = value
-    const changed = index !== seen.current
-    seen.current = index
+    const previous = seen.current
+    seen.current = { index, value }
     if (drag.current) return
-    if (changed && index !== target.current) springTo(index)
+    if (index === previous.index) paint(scroll.current)
+    else if (value === previous.value) {
+      // Same value at a new index (rows added or removed above it, e.g. days 12–31 → 1–30): jump, don't spin.
+      stop()
+      target.current = index
+      paint(index)
+    } else if (index !== target.current) springTo(index)
     else paint(scroll.current)
-  }, [index, value, options, paint, springTo])
+  }, [index, value, options, paint, springTo, stop])
 
   React.useEffect(
     () => () => {
@@ -395,6 +401,8 @@ function WheelPickerColumn({
       {...props}
       ref={rootRef}
       data-slot="wheel-picker"
+      // Inside a vaul Drawer, dragging the wheel must not drag the drawer.
+      data-vaul-no-drag=""
       role="spinbutton"
       aria-label={ariaLabel}
       aria-valuemin={0}
