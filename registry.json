@@ -1364,7 +1364,7 @@
         "forms",
         "motion"
       ],
-      "docs": "https://builders.ikas.com/tr/docs/app-development/ui-kit",
+      "docs": "https://builders.ikas.com/tr/docs/app-development/ui-kit/components/wheel-picker",
       "registryDependencies": [
         "@ikas/utils"
       ],

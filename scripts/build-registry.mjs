@@ -32,7 +32,7 @@ const docsPages = new Set(
     ? fs.readdirSync(path.join(root, "registry/ikas")).map((f) => f.replace(/\.\w+$/, ""))
     : []
 )
-for (const name of ["accordion", "alert-dialog", "badge", "button", "button-group", "calendar", "card", "combobox", "drawer", "questionnaire", "sheet"])
+for (const name of ["accordion", "alert-dialog", "badge", "button", "button-group", "calendar", "card", "combobox", "drawer", "questionnaire", "sheet", "wheel-picker"])
   docsPages.add(name)
 /** Items documented on a page with another path. */
 const docsPaths = {
