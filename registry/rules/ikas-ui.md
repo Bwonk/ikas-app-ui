@@ -13,15 +13,19 @@ açılır; ekranları panelle aynı tip ölçeğini, yoğunluğu ve yüzeyleri k
 | Ayar formları | `SettingsGroup` (`label`, `hint`, uzun sayfada `index`) + `Card` + `Field` | Ortalanmış tek kartta dev bir form |
 | Kayıt listesi | `RecordTable` | Tablo verisi için kart grid'i |
 | Gösterilecek bir şey yok | `EmptyState` | Gri bir "Veri yok" yazısı |
+| Plan dışı (kilitli) özellik | `FeatureGate` (`variant="overlay"` liste/kart üstüne, `"banner"`, `"inline"`, `"action"` tek butona; `plan`, `onUpgrade`) | "Pro'ya geç" yazan `EmptyState`, kendi kilit kartı, gri `disabled` buton |
 | Liste veya bölüm yüklenemedi | `RecordTable error` + `onRetry`, bölümde `EmptyState status="danger"` + `onRetry` | Boş tablo, kırmızı düz metin |
 | Kalıcı geri bildirim | `status` ile `Banner` | Renkli `<div>`'ler, emoji, alert() |
 | Geçici geri bildirim | `sonner` paketinden `toast`; kökte bir kez `@/components/ui/sonner` içinden `Toaster` | "Kaydedildi!" için banner |
 | Kaydedilmemiş form değişiklikleri | `UnsavedBar` | Uzun formun en altında Kaydet butonu |
 | Durum | `status` ile `Badge` (canlı durumlar için + `dot`) | Özel renkli hap etiketler |
+| Değişen durum (bekliyor → eşitleniyor → tamamlandı) | `AnimatedBadge` (`status`, canlı için `media="dot"` + `pulse`) | Durumu yanıp sönen `Badge`, kendi keyframe'i |
 | Aksiyonlar | `variant` + `color` ile `Button` | Özel `<button>` stilleri, ekstra gölgeler |
 | Önemli sayılar | `StatCard` | Gradient metinli dev hero sayıları |
 | Anahtar/değer detayları | `DescriptionList` | Elle hizalanmış flex satırları |
 | Tek bir açma/kapama ayarı | `SettingRow` | Rastgele bir flex içinde label + switch |
+| Renk girişi | `Field` içinde `ColorPicker` (`value`/`onValueChange` hex döner; `swatches` ile kayıtlı renkler) | `<input type="color">`, elle yazılmış hex alanı |
+| Açık/koyu görünüm seçimi | `ThemeSwitch` (`theme`, `onThemeChange`, `transition`) | Elle yazılmış güneş/ay butonu, kendi sayfa geçişi |
 | Aç/kapa özellik + ayarları | `ToggleSection` | Switch'in yanında hep görünen ayar formu |
 | İlk kurulum adımları | `Launchpad` (adım başına `eta`, sıra gerekiyorsa `requires`) | Ekranda dağınık "önce şunu yapın" banner'ları |
 | Storefront script kur/güncelle/kaldır | `ScriptInstaller` | Elle yazılmış kur butonu, onaysız kaldırma |
@@ -79,6 +83,8 @@ Veriye dayalı her ekran şunları karşılar: **yükleniyor** (sayfanın ortas�
 `RecordTable loading` veya `Skeleton` ile iskeletler), **boş** (`EmptyState`), **hata**
 (bölüm 1'deki gibi yerinde; sayfanın geri kalanı çalışıyorsa tekrar dene aksiyonlu `Banner status="danger"`)
 ve **başarı** (`toast`).
+**Kilitli** boş demek değildir: plan dışı bir özellik `FeatureGate` ile kilitlenir, `EmptyState` ile anlatılmaz;
+içerik görünür ama tıklanmaz kalır.
 
 ## 5. Sayfa tarifleri
 
@@ -102,6 +108,7 @@ ve **başarı** (`toast`).
   `translate` ve `scale` yazın (`transform` değil).
 - İkon mikro animasyonu için ikona `data-anim="spin|nudge|lift|drop|ring|wiggle|bounce|pop"` verin;
   kendi keyframe'inizi yazmayın.
+- Durumu değişen rozet için `AnimatedBadge` kullanın; etiket ve ikon kendi akar. Ekrana ilk gelişte oynamaz.
 - Sekme / tekli seçim için `SegmentedControl`, sayı girişi için `NumberStepper`, açılır bölüm için
   `Collapse`, satır içi yıkıcı onay için `ConfirmButton` kullanın.
 - Her animasyonun reduced-motion karşılığı olmalı (`springOrInstant(useReducedMotion())`, `motion-reduce:*`).
