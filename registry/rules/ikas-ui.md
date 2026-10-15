@@ -30,6 +30,7 @@ Birden çok bölümü olan uygulama bölümler arasında `PageNav` ile geçer (`
 | Durum | `status` ile `Badge` (canlı durumlar için + `dot`) | Özel renkli hap etiketler |
 | Değişen durum (bekliyor → eşitleniyor → tamamlandı) | `AnimatedBadge` (`status`, canlı için `media="dot"` + `pulse`) | Durumu yanıp sönen `Badge`, kendi keyframe'i |
 | Aksiyonlar | `variant` + `color` ile `Button` | Özel `<button>` stilleri, ekstra gölgeler |
+| Yalnızca ikonlu buton | `Button size="icon"` + `aria-label` + `Tooltip` (kısayol varsa `TooltipContent shortcut`), kökte bir `TooltipProvider` | Etiketsiz ikon, `title` attribute, ipucunda ok veya kendi gecikmesi |
 | Önemli sayılar | `StatCard` | Gradient metinli dev hero sayıları |
 | Anahtar/değer detayları | `DescriptionList` | Elle hizalanmış flex satırları |
 | Tek bir açma/kapama ayarı | `SettingRow` | Rastgele bir flex içinde label + switch |
