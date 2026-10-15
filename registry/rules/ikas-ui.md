@@ -4,11 +4,20 @@ Bu kurallar bu ikas uygulamasının her ekranı için geçerlidir. Uygulama ikas
 açılır; ekranları panelle aynı tip ölçeğini, yoğunluğu ve yüzeyleri kullanmalı, sıradan bir AI
 çıktısı gibi durmamalıdır. Arayüz kodu yazarken veya değiştirirken bu kurallara uy.
 
+## Panelin içindesin
+
+Panelin üst barı zaten var: geri butonu, uygulama logosu, uygulama adı ve "Planı yönet". Uygulama bunların
+hiçbirini çizmez: logo yok, uygulama adı yok, kendi üst barı yok, sidebar yok, plan/abonelik butonu yok.
+`PageHeader` başlığı ekranın veya bölümün adıdır ("Gönderimler", "Ayarlar"), uygulamanın adı değil.
+Birden çok bölümü olan uygulama bölümler arasında `PageNav` ile geçer (`Page`'in ilk çocuğu, en fazla 6 bölüm).
+
 ## 1. Yapı taşlarını kullan, yeniden icat etme
 
 | İhtiyaç | Kullan | Asla |
 | --- | --- | --- |
 | Ekran sarmalayıcı + başlık + aksiyonlar | `@/components/ikas/page` içinden `Page` + `PageHeader` | `<h1>` içeren özel bir `<div className="container">` |
+| Bölümler arası geçiş (çok bölümlü uygulama) | `@/components/ikas/page-nav` içinden `PageNav` (router varsa `href`, tek sayfaysa `value` + `onValueChange`) | Sidebar, kendi üst barı, logo + uygulama adı başlığı |
+| Kart veya tablo içinde görünüm değiştirme | `SegmentedControl` (kart başlığında `size="sm"`) ya da `Tabs` | İç içe iki hap sekme satırı |
 | Sütunlar | `Layout` / `LayoutColumn` (`columns="main-aside"`, `"half"`, `"third"`) | Her sayfada elle yazılmış `grid-cols-*` |
 | Ayar formları | `SettingsGroup` (`label`, `hint`, uzun sayfada `index`) + `Card` + `Field` | Ortalanmış tek kartta dev bir form |
 | Kayıt listesi | `RecordTable` | Tablo verisi için kart grid'i |
@@ -63,6 +72,9 @@ Kendin yazmadan önce eksik olanı `npx shadcn@latest add @ikas/<name>` ile kur.
   Gövde 14px. Uygulamanın hiçbir yerinde `text-4xl`+ kullanma; TAMAMI BÜYÜK HARF etiket ve `tracking-widest` yok.
 - **Yoğunluk:** bu bir panel aracı. Kontroller 36px (`h-9`). Boşlukları şişirme
   (`p-10`, `py-24`) ve landing page tarzı hero bölümleri oluşturma.
+- **Gezinme hiyerarşisi:** 1. seviye `PageNav` (alt çizgili bar, sayfanın en üstünde), 2. seviye kart başlığında
+  veya araç çubuğunda `SegmentedControl` / `Tabs` (hap). İki hap satırı ya da iki alt çizgili bar asla iç içe olmaz.
+  Üçüncü seviye gerekiyorsa tasarımı değiştir: ayrı ekranlara böl, `Collapse` veya `Select` kullan.
 - **İkonlar:** lucide-react; kontrollerde 16px, diğer yerlerde en fazla 20px. İkonlar metni destekler,
   ana aksiyonda asla etiketin yerini almaz.
 
@@ -88,6 +100,8 @@ içerik görünür ama tıklanmaz kalır.
 
 ## 5. Sayfa tarifleri
 
+- **Çok bölümlü uygulama:** `Page` → en üstte `PageNav` (≤ 6 bölüm) → `PageHeader` (bölümün adı) →
+  bölümün içeriği (aşağıdaki tariflerden biri). Sidebar yok, uygulama adı yok.
 - **Liste sayfası:** `Page width="wide"` → `PageHeader` (başlık, ana aksiyon) →
   araç çubuklu (arama + filtreler), sayfalamalı ve toplu işlemli `RecordTable`.
 - **Detay sayfası:** `Page` → `PageHeader` (`back`, `badges`, aksiyonlar) →
@@ -109,7 +123,7 @@ içerik görünür ama tıklanmaz kalır.
 - İkon mikro animasyonu için ikona `data-anim="spin|nudge|lift|drop|ring|wiggle|bounce|pop"` verin;
   kendi keyframe'inizi yazmayın.
 - Durumu değişen rozet için `AnimatedBadge` kullanın; etiket ve ikon kendi akar. Ekrana ilk gelişte oynamaz.
-- Sekme / tekli seçim için `SegmentedControl`, sayı girişi için `NumberStepper`, açılır bölüm için
+- Bölümler için `PageNav`, kart içi sekme / tekli seçim için `SegmentedControl`, sayı girişi için `NumberStepper`, açılır bölüm için
   `Collapse`, satır içi yıkıcı onay için `ConfirmButton` kullanın.
 - Her animasyonun reduced-motion karşılığı olmalı (`springOrInstant(useReducedMotion())`, `motion-reduce:*`).
 
