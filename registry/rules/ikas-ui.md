@@ -17,6 +17,7 @@ Birden çok bölümü olan uygulama bölümler arasında `PageNav` ile geçer (`
 | --- | --- | --- |
 | Ekran sarmalayıcı + başlık + aksiyonlar | `@/components/ikas/page` içinden `Page` + `PageHeader` | `<h1>` içeren özel bir `<div className="container">` |
 | Bölümler arası geçiş (çok bölümlü uygulama) | `@/components/ikas/page-nav` içinden `PageNav` (router varsa `href`, tek sayfaysa `value` + `onValueChange`) | Sidebar, kendi üst barı, logo + uygulama adı başlığı |
+| Derindeki bir kayda giden yol (liste → kayıt → alt kayıt) | `PageHeader`'ın üstünde `Breadcrumb` (son öğe `BreadcrumbPage`, uzun yolda ortası `BreadcrumbEllipsis`) | Elle `/` ile birleştirilmiş linkler, uygulama adıyla başlayan yol |
 | Kart veya tablo içinde görünüm değiştirme | `SegmentedControl` (kart başlığında `size="sm"`) ya da `Tabs` | İç içe iki hap sekme satırı |
 | Sütunlar | `Layout` / `LayoutColumn` (`columns="main-aside"`, `"half"`, `"third"`) | Her sayfada elle yazılmış `grid-cols-*` |
 | Ayar formları | `SettingsGroup` (`label`, `hint`, uzun sayfada `index`) + `Card` + `Field` | Ortalanmış tek kartta dev bir form |
@@ -105,7 +106,7 @@ içerik görünür ama tıklanmaz kalır.
   bölümün içeriği (aşağıdaki tariflerden biri). Sidebar yok, uygulama adı yok.
 - **Liste sayfası:** `Page width="wide"` → `PageHeader` (başlık, ana aksiyon) →
   araç çubuklu (arama + filtreler), sayfalamalı ve toplu işlemli `RecordTable`.
-- **Detay sayfası:** `Page` → `PageHeader` (`back`, `badges`, aksiyonlar) →
+- **Detay sayfası:** `Page` → iki seviyeden derinse `Breadcrumb` → `PageHeader` (`back`, `badges`, aksiyonlar) →
   `Layout columns="main-aside"` → ana sütun: içerik kartları; yan sütun: `DescriptionList` kartları.
 - **Ayarlar sayfası:** `Page width="narrow"` → `PageHeader` → her biri tek `Card` içeren alt alta
   `SettingsGroup`'lar → formun değişiklik durumuna bağlı `UnsavedBar`. Dörtten fazla grup varsa
