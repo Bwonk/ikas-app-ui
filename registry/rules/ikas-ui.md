@@ -36,6 +36,7 @@ Birden çok bölümü olan uygulama bölümler arasında `PageNav` ile geçer (`
 | Anahtar/değer detayları | `DescriptionList` | Elle hizalanmış flex satırları |
 | Tek bir açma/kapama ayarı | `SettingRow` | Rastgele bir flex içinde label + switch |
 | Renk girişi | `Field` içinde `ColorPicker` (`value`/`onValueChange` hex döner; `swatches` ile kayıtlı renkler) | `<input type="color">`, elle yazılmış hex alanı |
+| Kullanıcının belirlediği sıra (öncelik, kart içi iş listesi) | `SortableStack` (tutamaç ve klavyeyle taşıma, `SortableStackUndo`; kalıcı sıra için `onItemsChange` ile kaydedin) | Yukarı/aşağı ok butonları, tüm satırı sürüklenebilir yapmak, elle yazılmış sürükle-bırak |
 | Açık/koyu görünüm seçimi | `ThemeSwitch` (`theme`, `onThemeChange`, `transition`) | Elle yazılmış güneş/ay butonu, kendi sayfa geçişi |
 | Aç/kapa özellik + ayarları | `ToggleSection` | Switch'in yanında hep görünen ayar formu |
 | İlk kurulum adımları | `Launchpad` (adım başına `eta`, sıra gerekiyorsa `requires`) | Ekranda dağınık "önce şunu yapın" banner'ları |
