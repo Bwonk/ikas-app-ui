@@ -7,6 +7,8 @@
 @source "../../demos";
 @source "../../examples";
 @source "../components";
+/* ikas-ui.md names the classes apps must not use; scanning it would ship them. */
+@source not "../../registry/rules";
 
 /* Demo alignment, set from ?align= by <PreviewQueryScript /> before paint (static export has no searchParams on the server). */
 [data-demo-root] {
